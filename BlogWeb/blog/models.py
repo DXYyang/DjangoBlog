@@ -76,7 +76,9 @@ class Post(models.Model):
     is_md = models.BooleanField(default=False, verbose_name="markdown语法")
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name="状态")
     category = models.ForeignKey(Category, verbose_name="分类", on_delete=models.CASCADE)
+    #一对多:1:会在category中生成post_set的反向引用 2:post.category(前后台都是) 3:post.filter(category_id =...)
     tag = models.ManyToManyField(Tag, verbose_name="标签")
+    #多对多:1:会在tag中生成post_set的反向应用 2:前台是post.tags 后台是post.tag 3:post.filter(tag_id=...)
     owner = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE)
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
     pv = models.PositiveIntegerField(default=1)
@@ -85,9 +87,9 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-    # @cached_property
-    # def tags(self):
-    #     return ','.join(self.tag.values_list('name', flat=True))
+    @cached_property
+    def taglist(self):
+        return ','.join(self.tag.values_list('name', flat=True))
 
     def save(self, *args, **kwargs):
         if self.is_md:

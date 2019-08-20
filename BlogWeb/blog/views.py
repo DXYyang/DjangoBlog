@@ -1,5 +1,4 @@
 from django.db.models import Q, F
-from django.shortcuts import render
 from .models import Post, Tag, Category
 from config.models import SideBar
 from django.views.generic import DetailView, ListView

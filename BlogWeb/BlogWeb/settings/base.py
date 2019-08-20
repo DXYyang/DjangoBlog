@@ -29,6 +29,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'ckeditor',
+    'ckeditor_uploader',
+    'dal',
+    'dal_select2',
+    'xadmin',
+    'crispy_forms',
     'BlogWeb',
     'blog',
     'config',
@@ -54,6 +60,24 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'BlogWeb.urls'
 THEME = 'bootstrap'
+XADMIN_TITLE = 'Blog管理后台'
+XADMIN_FOOTER_TITLE = 'power by xuyang'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 800,
+        'tabSpaces': 4,
+        'extraPlugins': 'codesnippet',
+    },
+}
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+CKEDITOR_UPLOAD_PATH = "article_images"
+DEFAULT_FILE_STORAGE = 'typeidea.storage.WatermarkStorage'
+
 
 STATIC_ROOT = '/tmp/static'  # 用来配置部署之后的静态资源路径
 STATIC_URL = '/static/'  # 用来配置页面上静态资源的起始路径
